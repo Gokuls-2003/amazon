@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Amazon',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        scaffoldBackgroundColor:  GobalVariables.backgroundColor,
         colorScheme: const ColorScheme.light(
           primary: GobalVariables.secondaryColor,
         ),
