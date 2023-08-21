@@ -11,7 +11,7 @@ const app = express();
 const DB =
    "mongodb+srv://gokul:TomGokul6379216315@cluster0.2mbtukr.mongodb.net/?retryWrites=true&w=majority"
 // middleware
-
+app.use(express.json());
 app.use(authRouter);
 
 // connections

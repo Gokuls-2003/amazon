@@ -1,6 +1,7 @@
 import 'package:amazon/common/custom_button.dart';
 import 'package:amazon/common/widgets/custom_textfield.dart';
 import 'package:amazon/constants/global_variables.dart';
+import 'package:amazon/features/auth/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth {
@@ -21,7 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
-
+  final AuthService authService = AuthService();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -31,6 +32,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signinUser(
+        context: context,
+        email: _emailController.text,
+        name: _nameController.text,
+        password: _passwordController.text);
   }
 
   @override
@@ -98,15 +107,19 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        CustomButton(text: 'Sign-up', onTap: () {})
+                        CustomButton(text: 'Sign-up', onTap: () {
+                          if(_signUpFormKey.currentState!.validate()){
+                            signUpUser();
+                          }
+                        })
                       ],
                     ),
                   ),
                 ),
               ListTile(
-                tileColor: _auth == Auth.signin
-                    ? GobalVariables.backgroundColor
-                    : GobalVariables.greyBackgroundCOlor,
+                  tileColor: _auth == Auth.signin
+                      ? GobalVariables.backgroundColor
+                      : GobalVariables.greyBackgroundCOlor,
                   title: const Text(
                     'Sign_in',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -121,7 +134,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     },
                   )),
-                   if (_auth == Auth.signin)
+              if (_auth == Auth.signin)
                 Container(
                   padding: const EdgeInsets.all(8),
                   color: GobalVariables.backgroundColor,
