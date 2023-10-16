@@ -17,8 +17,8 @@ app.use(authRouter);
 // connections
 
 mongoose
-.connect(DB)
-.then(() => {
+  .connect(DB)
+  .then(() => {
     console.log("Connection successfully");
 })
 .catch((e) => {
